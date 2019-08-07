@@ -31,6 +31,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule
   ],
   providers: [],
