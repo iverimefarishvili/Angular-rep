@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe-list/recipe.model';
+import { DataStorageService } from '../shared/data-storage.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class RecipeService {
@@ -26,7 +28,7 @@ export class RecipeService {
   // ];
   private recipes: Recipe[] = [];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private http: HttpClient, private slService: ShoppingListService) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
@@ -48,6 +50,12 @@ export class RecipeService {
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
+    this.http
+            .put('https://recipe-book-baffa.firebaseio.com/recipes.json', this.recipes)
+            .subscribe(response => {
+                console.log(response);
+            });
+    
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
