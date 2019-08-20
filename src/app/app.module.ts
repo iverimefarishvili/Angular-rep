@@ -18,6 +18,7 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
 import { fromEventPattern, from } from 'rxjs';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -34,7 +35,8 @@ import { fromEventPattern, from } from 'rxjs';
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent
     
    
   ],
