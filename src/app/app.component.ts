@@ -9,7 +9,10 @@ import { LogginService } from './logging.service';
  
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService, private loggingService: LogginService) {}
+  constructor(
+    private authService: AuthService, 
+    private loggingService: LogginService
+    ) {}
 
   ngOnInit() {
   this.authService.autoLogin();
