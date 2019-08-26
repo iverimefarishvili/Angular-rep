@@ -8,7 +8,7 @@ import { Recipe } from './recipe-list/recipe.model';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
-import * as fromShoppingList from '../shopping-list/store/shopping-list.actions';
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
 
 
 
