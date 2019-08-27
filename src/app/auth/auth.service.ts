@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 import { Store } from '@ngrx/store';
-import * as fromApp from './store/auth.reducer';
+import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
-import { EmailValidator } from '@angular/forms';
+
 
 
 export interface AuthResponseData {
@@ -25,10 +25,10 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
     
-    user = new BehaviorSubject<User>(null);
+    //user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
 
-    constructor(private http: HttpClient, private router: Router, private store: Store){}
+    constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>){}
 
     signup(email: string, password: string) {
         return this.http
@@ -116,7 +116,13 @@ export class AuthService {
                 token,
                 expirationDate);
                 //this.user.next(user);
-                this.store.dispatch(new AuthActions.Login({email: email, userId: userId, token: token, expirationDate: expirationDate}))
+                this.store.dispatch(
+                    new AuthActions.Login({
+                        email: email, 
+                        userId: userId, 
+                        token: token, 
+                        expirationDate: expirationDate
+                    }))
                 this.autoLogout(expiresIn * 1000);
                 localStorage.setItem('userData', JSON.stringify(user));
     }

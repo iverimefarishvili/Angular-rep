@@ -1,6 +1,4 @@
 import { Action } from '@ngrx/store';
-import { tokenName } from '@angular/compiler';
-import { type } from 'os';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';

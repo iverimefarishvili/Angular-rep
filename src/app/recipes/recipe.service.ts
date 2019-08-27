@@ -8,7 +8,7 @@ import { Recipe } from './recipe-list/recipe.model';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
-import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
+import * as fromApp from '../store/app.reducer';
 
 
 
@@ -35,7 +35,7 @@ export class RecipeService {
   constructor(
     private http: HttpClient, 
     private slService: ShoppingListService,
-    private store: Store<fromShoppingList.AppState>
+    private store: Store<fromApp.AppState>
     ) {}
 
   setRecipes(recipes: Recipe[]) {
