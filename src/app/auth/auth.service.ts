@@ -84,7 +84,7 @@ export class AuthService {
     
         if (loadedUser.token) {
             //this.user.next(loadedUser);
-            this.store.dispatch(new AuthActions.Login({email: loadedUser.email, userId: loadedUser.id, token: loadedUser.token, expirationDate: new Date(userData._tokenExpirationDate)}))
+            this.store.dispatch(new AuthActions.AuthenticateSuccess({email: loadedUser.email, userId: loadedUser.id, token: loadedUser.token, expirationDate: new Date(userData._tokenExpirationDate)}))
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration);
         }
@@ -117,7 +117,7 @@ export class AuthService {
                 expirationDate);
                 //this.user.next(user);
                 this.store.dispatch(
-                    new AuthActions.Login({
+                    new AuthActions.AuthenticateSuccess({
                         email: email, 
                         userId: userId, 
                         token: token, 

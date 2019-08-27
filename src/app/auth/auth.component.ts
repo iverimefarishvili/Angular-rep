@@ -17,9 +17,9 @@ import * as AuthActions from './store/auth.actions';
 })
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
-  isLoading = false;
   error: string = null;
-  authObs: Observable<AuthResponseData>;
+  //isLoading= false;
+  
 
   @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
   
@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.select('auth').subscribe(authStat => {
-      this.isLoading = authStat.loading;
+      //this.isLoading = authStat.loading;
       this.error = authStat.authError;
     });
     if (this.error) {
@@ -50,13 +50,14 @@ export class AuthComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
-    this.isLoading = true;
+    
     if (this.isLoginMode){
       //this.authObs = this.authService.login(email, password);
       this.store.dispatch(new AuthActions.LoginStart({email: email, password: password})
       );
     } else {
-      this.authObs = this.authService.signup(email, password);
+      //this.authObs = this.authService.signup(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({email: email, password: password}))
     }
 
     
