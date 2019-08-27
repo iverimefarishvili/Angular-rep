@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { CommonModule } from '@angular/common';
-
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -23,9 +25,21 @@ export class AuthComponent implements OnInit, OnDestroy {
   
   private closeSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<fromApp.AppState>
+    ) { }
 
   ngOnInit() {
+    this.store.select('auth').subscribe(authStat => {
+      this.isLoading = authStat.loading;
+      this.error = authStat.authError;
+    });
+    if (this.error) {
+      this.showErrorAlert(this.error);
+    }
   }
 
   onSwitchMode() {
@@ -38,20 +52,26 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     if (this.isLoginMode){
-      this.authObs = this.authService.login(email, password);
+      //this.authObs = this.authService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({email: email, password: password})
+      );
     } else {
       this.authObs = this.authService.signup(email, password);
     }
-    this.authObs.subscribe(resData => {
-      console.log(resData);
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    },errorMessage => {
-      console.log(errorMessage);
-      this.error = errorMessage;
-      this.showErrorAlert(errorMessage);
-      this.isLoading = false;
-    });
+
+    
+
+
+    //this.authObs.subscribe(resData => {
+    // console.log(resData);
+    //  this.isLoading = false;
+    //  this.router.navigate(['/recipes']);
+    //},errorMessage => {
+    //  console.log(errorMessage);
+    //  this.error = errorMessage;
+    //  this.showErrorAlert(errorMessage);
+    //  this.isLoading = false;
+    //});
     form.reset();
   }
 
