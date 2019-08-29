@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-
-
-import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
-import { Recipe } from './recipe-list/recipe.model';
-import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
+
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
 import * as fromApp from '../store/app.reducer';
-
-
 
 @Injectable()
 export class RecipeService {
@@ -33,10 +28,8 @@ export class RecipeService {
   private recipes: Recipe[] = [];
 
   constructor(
-    private http: HttpClient, 
-    private slService: ShoppingListService,
     private store: Store<fromApp.AppState>
-    ) {}
+  ) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
@@ -52,20 +45,13 @@ export class RecipeService {
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    //this.slService.addIngredients(ingredients);
+    // this.slService.addIngredients(ingredients);
     this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
-
   }
 
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
-    this.http
-            .put('https://recipe-book-baffa.firebaseio.com/recipes.json', this.recipes)
-            .subscribe(response => {
-                console.log(response);
-            });
-    
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {

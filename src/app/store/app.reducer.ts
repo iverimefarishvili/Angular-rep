@@ -7,7 +7,7 @@ import * as fromRecipes from '../recipes/store/recipe.reducer';
 export interface AppState {
   shoppingList: fromShoppingList.State;
   auth: fromAuth.State;
-  recipes: fromRecipes.State
+  recipes: fromRecipes.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
