@@ -1,4 +1,6 @@
 import { Action } from '@ngrx/store';
+import { Recipe } from '../recipe-list/recipe.model';
+import { type } from 'os';
 
 export const SET_RECIPES = '[Recipes] Set Recipes';
 
@@ -7,3 +9,5 @@ export class SetRecipes implements Action {
 
     constructor(public payload: Recipe[]) {}
 }
+
+export type RecipesActions = SetRecipes;
