@@ -1,6 +1,6 @@
 import { Recipe } from '../recipe-list/recipe.model';
 import * as RecipesActions from './recipe.actions';
-import { act } from '@ngrx/effects';
+
 
 
 export interface State {
@@ -11,7 +11,7 @@ const initialState: State = {
     recipes: []
 }
 
-export function recipeReducer(state = initialState, action = RecipesActions) {
+export function recipeReducer(state = initialState, action: RecipesActions.RecipesActions) {
     switch (action.type) {
         case RecipesActions.SET_RECIPES:
             return {
