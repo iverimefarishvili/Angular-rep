@@ -20,14 +20,20 @@ export class FetchRecipes implements Action {
 
 export class AddRecipe implements Action{
   readonly type = ADD_RECIPE;
+
+  constructor(public payload: Recipe) {}
 }
 
 export class UpdateRecipe implements Action {
   readonly type = UPDATE_RECIPE;
+
+  constructor(public payload: {index: number; newRecipe: Recipe}) {}
 }
 
 export class DeleteRecipe implements Action { 
   readonly type = DELETE_RECIPE;
+
+  constructor(public payload: number) {}
 }
 
 export type RecipesActions = 
